@@ -1,26 +1,14 @@
-import {useEffect, useState} from 'react';
+import {  useState } from 'react';
 import priceAfterDiscount from '@/utils/priceAfterDiscount.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '@/reduxStore/slices/cartSlice.js';
 import DiscountCard from '@/components/products/DiscountCard.jsx';
 import discountedPrice from '@/utils/dicountedPrice.js';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 function ProductsCard({ allProducts }) {
     const [addWishList, setAddWishList] = useState(false);
-    const wishList = (item) => {
-        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const isAlreadyInWishlist = wishlist.find((wishlistItem) => wishlistItem.id === item.id);
-
-        if (isAlreadyInWishlist) {
-            const updatedWishlist = wishlist.filter((wishlistItem) => wishlistItem.id !== item.id);
-            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-            setAddWishList(false);
-        } else {
-            wishlist.push(item);
-            localStorage.setItem('wishlist', JSON.stringify(wishlist));
-            setAddWishList(true);
-        }
-    };
+    const [isLoaded, setIsLoaded] = useState(false);
+    const navigate = useNavigate();
     const products = allProducts;
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
@@ -37,25 +25,51 @@ function ProductsCard({ allProducts }) {
     const handleRemoveFromCart = (product) => {
         dispatch(removeFromCart(product));
     };
-    const navigate = useNavigate();
+    const wishList = (item) => {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const isAlreadyInWishlist = wishlist.find((wishlistItem) => wishlistItem.id === item.id);
+
+        if (isAlreadyInWishlist) {
+            const updatedWishlist = wishlist.filter((wishlistItem) => wishlistItem.id !== item.id);
+            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+            setAddWishList(false);
+        } else {
+            wishlist.push(item);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            setAddWishList(true);
+        }
+    };
 
     const handleQuickView = (id) => {
         navigate(`/product/${id}`);
     };
 
     return (
-        <div className='products-card container mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='products-card  mx-auto px-4 sm:px-6 lg:px-[161.5px]'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4'>
                 {products?.map((item) => (
                     <div
                         key={item.id}
-                        className='group w-full max-w-sm bg-white border border-transparent rounded-lg shadow-sm hover:border-gray-200 hover:shadow-lg dark:bg-gray-800 dark:border-transparent dark:hover:border-gray-700'
+                        className='group w-full max-w-sm bg-white border border-transparent rounded-lg  hover:border-gray-200 hover:shadow-lg dark:bg-gray-800 dark:border-transparent dark:hover:border-gray-700'
                     >
                         <div className='relative p-1'>
+                            {!isLoaded && (
+                                <img
+                                    className='rounded-lg w-full group-hover:bg-black group-hover:bg-opacity-[33%] transition duration-300'
+                                    src='/images/products/errors.png'
+                                    alt={item.title}
+                                />
+                            )}
+
                             <img
                                 className='rounded-lg w-full group-hover:bg-black group-hover:bg-opacity-[33%] transition duration-300'
                                 src={item.thumbnail}
-                                alt='img'
+                                alt={item.title}
+                                onLoad={() => setIsLoaded(true)}
+                                onError={(e) => {
+                                    e.target.src = '/images/products/errors.png';
+                                    e.target.onerror = null;
+                                }}
                             />
                             <div className='absolute top-3 -left-1'>
                                 {(item.discountPercentage > 0 ||

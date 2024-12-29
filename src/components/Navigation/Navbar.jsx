@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='bg-white shadow-md container mx-auto px-4 sm:px-6 lg:px-8'>
+            <nav className='bg-white shadow-md  sticky top-0 z-50 mx-auto px-4 sm:px-6 lg:px-[161.5px]'>
                 <div className=' flex justify-between items-center px-4 py-2'>
                     <Link to='/' className='text-xl font-semibold text-gray-800'>
                        ShareTrip

@@ -7,14 +7,14 @@ const CartPage = () => {
     const total = useSelector((state) => state.cart.total);
 
     return (
-        <div className='container mx-auto p-4'>
-            <h2 className='text-2xl font-bold mb-4'>Cart Information</h2>
+        <div className='mx-auto px-4 sm:px-6 lg:px-[161.5px]'>
+            <h2 className='text-2xl font-bold mb-4 px-4 py-2'>Cart Information</h2>
             {cartItems.length === 0 ? (
                 <div className='grid place-items-center min-h-[80vh]'>
                     <div className=''>No Item is found</div>
                 </div>
             ) : (
-                <div>
+                <div className='px-4 py-2'>
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                         {cartItems.map((item) => (
                             <div
