@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+}
+body {
+    font-family: 'Murecho', sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+/*.container {*/
+/*    @apply  !px-[161.5px] !py-20;*/
+/*}*/
+
+.spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #28a745;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.bg-clip-triangle{
+    clip-path: polygon(100% 0, 0 0, 100% 65%);
+}
+.bg-clip-triangle-2{
+    --r: 20px; /* border radius */
+    aspect-ratio: 1/cos(30deg);
+    --_g:calc(tan(60deg)*var(--r)) bottom var(--r),#000 98%,#0000 101%;
+    mask:
+        /* a conic gradient to fill the middle area */
+            conic-gradient(from -30deg at 50% calc(200% - 3*var(--r)/2),#000 60deg,#0000 0)
+            0 100%/100% calc(100% - 3*var(--r)/2) no-repeat,
+                /* 3 radial gradients for 3 circles */
+            radial-gradient(var(--r) at 50% calc(2*var(--r)),#000 98%,#0000 101%),
+            radial-gradient(var(--r) at left  var(--_g)),
+            radial-gradient(var(--r) at right var(--_g));
+
+    clip-path: polygon(50% 0,100% 100%,0 100%);
+    /*clip-path: polygon(0% 0%, 100% 100%,0% 100%, 0% 100%);*/
+}
+/* HTML: <div class="triangle"></div> */
+.bg-clip-triangle-l-2 {
+    --r:10px; /* border radius */
+    width: 16px;
+    height: 36px;
+    aspect-ratio: auto;
+    border-bottom-left-radius: var(--r);
+    clip-path: polygon(0 0,100% 100%,0 100%);
+    --_g:calc(50%*(1 + 1/tan(22.5deg)) - var(--r)/(3*sqrt(2) - 4));
+    --_r:calc(var(--r)/tan(22.5deg)),#000 98%,#0000 101%;
+    mask:
+            radial-gradient(var(--r) at bottom var(--r) right var(--_r)),
+            radial-gradient(var(--r) at left   var(--r) top   var(--_r)),
+            conic-gradient(from 202.5deg at var(--_g) calc(100% - var(--_g)),#000 45deg,#0000 0);
+    background: linear-gradient(45deg,#FA6900,#C02942);
+}
+.bg-clip-triangle-l-old {
+    --r:15px; /* border radius */
+    --rg:0px; /* border radius */
+    width: 150px;
+    aspect-ratio: 1;
+    border-bottom-right-radius: var(--r);
+    clip-path: polygon(0 0,100% 100%,0 100%);
+    --_g:calc(50%*(1 + 1/tan(22.5deg)) - var(--r)/(3*sqrt(2) - 4));
+    --_r:calc(var(--r)/tan(22.5deg)),#000 98%,#0000 101%;
+    --_rg:calc(var(--rg)/tan(30deg)),#000 100%,#0000 1001%;
+    mask:
+            radial-gradient(var(--r) at bottom var(--r) right var(--_r)),
+            radial-gradient(var(--r) at left   var(--rg) top   var(--_rg)),
+            conic-gradient(from 202.5deg at var(--_g) calc(100% - var(--_g)),#000 45deg,#0000 0);
+    background: linear-gradient(45deg,#FA6900,#C02942);
+}
+.bg-clip-triangle-l-09 {
+    --r: 10%; /* Border radius as a percentage of height */
+    --rg: 5%; /* Secondary radius for finer control */
+    width: var(160px); /* Default width is 150px, but can be overridden */
+    height: var(360px); /* Default height is 150px, but can be overridden */
+    border-bottom-right-radius: var(--r);
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    --_g: calc(50% * (1 + 1 / tan(22.5deg)) - (var(--r) * 1px) / (3 * sqrt(2) - 4));
+    --_r: calc((var(--r) * 1px) / tan(22.5deg));
+    --_rg: calc((var(--rg) * 1px) / tan(30deg));
+    mask:
+            radial-gradient(var(--r) at bottom var(--r) right var(--_r)),
+            radial-gradient(var(--r) at left var(--rg) top var(--_rg)),
+            conic-gradient(from 202.5deg at var(--_g) calc(100% - var(--_g)), #000 45deg, #0000 0);
+    background: linear-gradient(45deg, #FA6900, #C02942);
+}
+.bg-clip-triangle-l {
+    --r: 8px; /* Adjusted border radius */
+    --rg: 4px; /* Secondary border radius */
+    width: 30px;
+    height: 36px;
+    border-bottom-right-radius: var(--r);
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    --_g: calc(50% * (1 + 1 / tan(22.5deg)) - var(--r) / (3 * sqrt(4) - 4));
+    --_r: calc(var(--r)/tan(22.5deg)),#000 150%,#0000 200%;
+    --_rg: calc(var(--rg)/tan(22.5deg)),#000 300%,#0000 0%;
+    mask:
+            radial-gradient(var(--r) at bottom var(--r) right var(--_r)),
+            radial-gradient(var(--r) at left var(--rg) top var(--_rg)),
+            conic-gradient(from 202.5deg at var(--_g) calc(100% - var(--_g)), #000 45deg, #0000 0);
+    background: linear-gradient(45deg, #FA6900, #C02942);
+}
+
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-left: 50px solid #fa6900;
+    border-bottom: 50px solid transparent;
+}
+.triangle-bottom {
+    width: 0;
+    height: 0;
+    border-left: 50px solid #FA6900;
+    border-top: 50px solid transparent;
+}
+.cart-icon {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+ */
