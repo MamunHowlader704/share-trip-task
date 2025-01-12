@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart, decrementQuantity, removeFromCart } from '@/reduxStore/slices/cartSlice.js';
+import { addToCart, decrementQuantity, removeFromCart } from '@/reduxStore/cartSlices/cartSlice.js';
 
 const CartPage = () => {
     const dispatch = useDispatch();

@@ -1,10 +1,11 @@
-import {  useState } from 'react';
+import {useEffect, useState} from 'react';
 import priceAfterDiscount from '@/utils/priceAfterDiscount.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '@/reduxStore/slices/cartSlice.js';
+import { addToCart, removeFromCart } from '@/reduxStore/cartSlices/cartSlice.js';
 import DiscountCard from '@/components/products/DiscountCard.jsx';
 import discountedPrice from '@/utils/dicountedPrice.js';
 import { useNavigate } from 'react-router-dom';
+import {fetchProducts} from "@/reduxStore/productSlices/productSlice.js";
 function ProductsCard({ allProducts }) {
     const [addWishList, setAddWishList] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -13,7 +14,6 @@ function ProductsCard({ allProducts }) {
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
     const isInCart = (id) => cartItems.some((item) => item.id === id);
-
     const handleAddToCart = (item) => {
         const product = {
             ...item,
